@@ -29,6 +29,7 @@ TEXTCOLOR = WHITE
 
 RED = 'red'
 BLACK = 'black'
+GREEN = 'green'
 EMPTY = None
 HUMAN = 'human'
 COMPUTER = 'computer'
@@ -36,7 +37,7 @@ COMPUTER = 'computer'
 
 def main():
     global FPSCLOCK, DISPLAYSURF, REDPILERECT, BLACKPILERECT, REDTOKENIMG
-    global BLACKTOKENIMG, BOARDIMG, ARROWIMG, ARROWRECT, HUMANWINNERIMG
+    global BLACKTOKENIMG, GREENTOKENIMG, BOARDIMG, ARROWIMG, ARROWRECT, HUMANWINNERIMG
     global COMPUTERWINNERIMG, WINNERRECT, TIEWINNERIMG
 
     pygame.init()
@@ -50,6 +51,10 @@ def main():
     REDTOKENIMG = pygame.transform.smoothscale(REDTOKENIMG, (SPACESIZE, SPACESIZE))
     BLACKTOKENIMG = pygame.image.load('4row_black.png')
     BLACKTOKENIMG = pygame.transform.smoothscale(BLACKTOKENIMG, (SPACESIZE, SPACESIZE))
+	GREENTOKENIMG = pygame.image.load('4row_green.png')
+	GREENTOKENIMG = pygame.transform.smoothscale(GREENTOKENIMG, (SPACESIZE, SPACESIZE))
+	LILATOKENIMG = pygame.image.load('4row_lila.png')
+	LILATOKENIMG = pygame.transform.smoothscale(LILATOKENIMG, (SPACESIZE, SPACESIZE))
     BOARDIMG = pygame.image.load('4row_board.png')
     BOARDIMG = pygame.transform.smoothscale(BOARDIMG, (SPACESIZE, SPACESIZE))
 
@@ -335,26 +340,26 @@ def isBoardFull(board):
     return True
 
 
-def isWinner(board, tile):
+def isWinner(board, tile, s_tile):
     # check horizontal spaces
     for x in range(BOARDWIDTH - 4):
         for y in range(BOARDHEIGHT):
-            if board[x][y] == tile and board[x+1][y] == tile and board[x+2][y] == tile and board[x+3][y] == tile and board[x+4][y] == tile:
+            if (board[x][y] == tile or board[x][y] == s_tile) and (board[x+1][y] == tile or board[x+1][y] == s_tile) and (board[x+2][y] == tile or board[x+2][y] == s_tile) and (board[x+3][y] == tile or board[x+3][y] == s_tile) and (board[x+4][y] == tile or board[x+4][y] == s_tile):
                 return True
     # check vertical spaces
     for x in range(BOARDWIDTH):
         for y in range(BOARDHEIGHT - 4):
-            if board[x][y] == tile and board[x][y+1] == tile and board[x][y+2] == tile and board[x][y+3] == tile and board[x][y+4] == tile:
+            if (board[x][y] == tile or board[x][y] == s_tile) and (board[x][y+1] == tile or board[x][y+1] == s_tile) and (board[x][y+2] == tile or board[x][y+2] == s_tile) and (board[x][y+3] == tile or board[x][y+3] == s_tile) and (board[x][y+4] == tile or board[x][y+4] == s_tile):
                 return True
     # check / diagonal spaces
     for x in range(BOARDWIDTH - 4):
         for y in range(4, BOARDHEIGHT):
-            if board[x][y] == tile and board[x+1][y-1] == tile and board[x+2][y-2] == tile and board[x+3][y-3] == tile and board[x+4][y-4] == tile:
+            if (board[x][y] == tile or board[x][y] == s_tile) and (board[x+1][y-1] == tile or board[x+1][y-1] == s_tile) and (board[x+2][y-2] == tile or board[x+2][y-2] == s_tile) and (board[x+3][y-3] == tile or board[x+3][y-3] == s_tile) and (board[x+4][y-4] == tile or board[x+4][y-4] == s_tile):
                 return True
     # check \ diagonal spaces
     for x in range(BOARDWIDTH - 4):
         for y in range(BOARDHEIGHT - 4):
-            if board[x][y] == tile and board[x+1][y+1] == tile and board[x+2][y+2] == tile and board[x+3][y+3] == tile and board[x+4][y+4] == tile:
+            if (board[x][y] == tile or board[x][y] == s_tile) and (board[x+1][y+1] == tile or board[x+1][y+1] == s_tile) and (board[x+2][y+2] == tile or board[x+2][y+2] == s_tile) and (board[x+3][y+3] == tile or board[x+3][y+3] == s_tile) and (board[x+4][y+4] == tile or board[x+4][y+4] == s_tile):
                 return True
     return False
 
