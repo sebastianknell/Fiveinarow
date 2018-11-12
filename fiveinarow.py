@@ -30,6 +30,7 @@ TEXTCOLOR = WHITE
 RED = 'red'
 BLACK = 'black'
 GREEN = 'green'
+LILA = 'lila'
 EMPTY = None
 HUMAN = 'human'
 COMPUTER = 'computer'
@@ -37,8 +38,8 @@ COMPUTER = 'computer'
 
 def main():
     global FPSCLOCK, DISPLAYSURF, REDPILERECT, BLACKPILERECT, REDTOKENIMG
-    global BLACKTOKENIMG, GREENTOKENIMG, BOARDIMG, ARROWIMG, ARROWRECT, HUMANWINNERIMG
-    global COMPUTERWINNERIMG, WINNERRECT, TIEWINNERIMG
+    global BLACKTOKENIMG, GREENTOKENIMG, LILATOKENIMG, BOARDIMG, ARROWIMG, ARROWRECT
+    global HUMANWINNERIMG, COMPUTERWINNERIMG, WINNERRECT, TIEWINNERIMG
 
     pygame.init()
     FPSCLOCK = pygame.time.Clock()
@@ -47,14 +48,16 @@ def main():
 
     REDPILERECT = pygame.Rect(int(SPACESIZE / 2), WINDOWHEIGHT - int(3 * SPACESIZE / 2), SPACESIZE, SPACESIZE)
     BLACKPILERECT = pygame.Rect(WINDOWWIDTH - int(3 * SPACESIZE / 2), WINDOWHEIGHT - int(3 * SPACESIZE / 2), SPACESIZE, SPACESIZE)
+    GREENPILERECT = 
+    LILAPILERECT = 
     REDTOKENIMG = pygame.image.load('4row_red.png')
     REDTOKENIMG = pygame.transform.smoothscale(REDTOKENIMG, (SPACESIZE, SPACESIZE))
     BLACKTOKENIMG = pygame.image.load('4row_black.png')
     BLACKTOKENIMG = pygame.transform.smoothscale(BLACKTOKENIMG, (SPACESIZE, SPACESIZE))
-	GREENTOKENIMG = pygame.image.load('4row_green.png')
-	GREENTOKENIMG = pygame.transform.smoothscale(GREENTOKENIMG, (SPACESIZE, SPACESIZE))
-	LILATOKENIMG = pygame.image.load('4row_lila.png')
-	LILATOKENIMG = pygame.transform.smoothscale(LILATOKENIMG, (SPACESIZE, SPACESIZE))
+    GREENTOKENIMG = pygame.image.load('4row_green.png')
+    GREENTOKENIMG = pygame.transform.smoothscale(GREENTOKENIMG, (SPACESIZE, SPACESIZE))
+    LILATOKENIMG = pygame.image.load('4row_lila.png')
+    LILATOKENIMG = pygame.transform.smoothscale(LILATOKENIMG, (SPACESIZE, SPACESIZE))
     BOARDIMG = pygame.image.load('4row_board.png')
     BOARDIMG = pygame.transform.smoothscale(BOARDIMG, (SPACESIZE, SPACESIZE))
 
@@ -100,7 +103,7 @@ def runGame(isFirstGame):
             if showHelp:
                 # turn off help arrow after the first move
                 showHelp = False
-            if isWinner(mainBoard, RED):
+            if isWinner(mainBoard, RED, GREEN):
                 winnerImg = HUMANWINNERIMG
                 break
             turn = COMPUTER # switch to other player's turn
@@ -109,7 +112,7 @@ def runGame(isFirstGame):
             column = getComputerMove(mainBoard)
             animateComputerMoving(mainBoard, column)
             makeMove(mainBoard, BLACK, column)
-            if isWinner(mainBoard, BLACK):
+            if isWinner(mainBoard, BLACK, LILA):
                 winnerImg = COMPUTERWINNERIMG
                 break
             turn = HUMAN # switch to other player's turn
